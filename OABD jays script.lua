@@ -52,15 +52,19 @@ local FarmLocations = {
 local Gui = Instance.new("ScreenGui")
 Gui.Name = "NutellasOABDFarm"
 Gui.ResetOnSpawn = false
+Gui.IgnoreGuiInset = true
+Gui.DisplayOrder = 999999
+Gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 Gui.Parent = Player:WaitForChild("PlayerGui")
 
 local Main = Instance.new("Frame")
 Main.Name = "Main"
-Main.Size = UDim2.new(0, 340, 0, 215)
-Main.Position = UDim2.new(0.5, -170, 0.5, -107)
+Main.Size = UDim2.new(0, 340, 0, 285)
+Main.Position = UDim2.new(0.5, -170, 0.5, -142)
 Main.BackgroundColor3 = Color3.fromRGB(28, 12, 45)
 Main.BorderSizePixel = 0
 Main.Active = true
+Main.ZIndex = 100
 Main.Parent = Gui
 
 local MainCorner = Instance.new("UICorner")
@@ -84,6 +88,7 @@ Title.Text = "Nutellas OABD Farm"
 Title.TextColor3 = Color3.fromRGB(220, 165, 255)
 Title.TextSize = 24
 Title.Font = Enum.Font.GothamBold
+Title.ZIndex = 101
 Title.Parent = Main
 
 --==================================================
@@ -95,6 +100,7 @@ OriginalUI.Name = "OriginalUI"
 OriginalUI.Size = UDim2.new(1, 0, 1, -50)
 OriginalUI.Position = UDim2.new(0, 0, 0, 50)
 OriginalUI.BackgroundTransparency = 1
+OriginalUI.ZIndex = 101
 OriginalUI.Parent = Main
 
 local Subtitle = Instance.new("TextLabel")
@@ -105,7 +111,12 @@ Subtitle.Text = "20 Point Farming Route • 67 Studs/Sec"
 Subtitle.TextColor3 = Color3.fromRGB(150, 120, 175)
 Subtitle.TextSize = 13
 Subtitle.Font = Enum.Font.Gotham
+Subtitle.ZIndex = 102
 Subtitle.Parent = OriginalUI
+
+--==================================================
+-- START BUTTON
+--==================================================
 
 local StartButton = Instance.new("TextButton")
 StartButton.Name = "StartButton"
@@ -117,6 +128,7 @@ StartButton.Text = "START"
 StartButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 StartButton.TextSize = 19
 StartButton.Font = Enum.Font.GothamBold
+StartButton.ZIndex = 103
 StartButton.Parent = OriginalUI
 
 local ButtonCorner = Instance.new("UICorner")
@@ -128,6 +140,10 @@ ButtonStroke.Color = Color3.fromRGB(205, 120, 255)
 ButtonStroke.Thickness = 1.5
 ButtonStroke.Parent = StartButton
 
+--==================================================
+-- STATUS
+--==================================================
+
 local Status = Instance.new("TextLabel")
 Status.Size = UDim2.new(1, -40, 0, 35)
 Status.Position = UDim2.new(0, 20, 0, 88)
@@ -136,7 +152,56 @@ Status.Text = "● Farm Status: OFF"
 Status.TextColor3 = Color3.fromRGB(255, 100, 120)
 Status.TextSize = 14
 Status.Font = Enum.Font.GothamMedium
+Status.ZIndex = 103
 Status.Parent = OriginalUI
+
+--==================================================
+-- EQUIP ALL ITEMS BUTTON
+--==================================================
+
+local EquipAllButton = Instance.new("TextButton")
+EquipAllButton.Name = "EquipAllItemsForSell"
+EquipAllButton.Size = UDim2.new(1, -40, 0, 48)
+EquipAllButton.Position = UDim2.new(0, 20, 0, 130)
+EquipAllButton.BackgroundColor3 = Color3.fromRGB(95, 35, 150)
+EquipAllButton.BorderSizePixel = 0
+EquipAllButton.Text = "Equip All Items For Sell"
+EquipAllButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+EquipAllButton.TextSize = 15
+EquipAllButton.Font = Enum.Font.GothamBold
+EquipAllButton.ZIndex = 103
+EquipAllButton.Parent = OriginalUI
+
+local EquipCorner = Instance.new("UICorner")
+EquipCorner.CornerRadius = UDim.new(0, 9)
+EquipCorner.Parent = EquipAllButton
+
+local EquipStroke = Instance.new("UIStroke")
+EquipStroke.Color = Color3.fromRGB(205, 120, 255)
+EquipStroke.Thickness = 1.5
+EquipStroke.Parent = EquipAllButton
+
+--==================================================
+-- SELL NOTE
+--==================================================
+
+local SellNote = Instance.new("TextLabel")
+
+SellNote.Name = "SellNote"
+SellNote.Size = UDim2.new(1, -40, 0, 28)
+SellNote.Position = UDim2.new(0, 20, 0, 180)
+
+SellNote.BackgroundTransparency = 1
+
+SellNote.Text = '(YOU STILL HAVE TO PRESS "E" ALOT TO SELL)'
+SellNote.TextColor3 = Color3.fromRGB(180, 150, 200)
+SellNote.TextSize = 11
+SellNote.Font = Enum.Font.GothamMedium
+
+SellNote.TextWrapped = true
+SellNote.ZIndex = 103
+
+SellNote.Parent = OriginalUI
 
 --==================================================
 -- RUNNING UI
@@ -148,6 +213,7 @@ RunningUI.Size = UDim2.new(1, 0, 1, -50)
 RunningUI.Position = UDim2.new(0, 0, 0, 50)
 RunningUI.BackgroundTransparency = 1
 RunningUI.Visible = false
+RunningUI.ZIndex = 101
 RunningUI.Parent = Main
 
 local AutoFarmText = Instance.new("TextLabel")
@@ -158,6 +224,7 @@ AutoFarmText.Text = "● Auto Farm Started"
 AutoFarmText.TextColor3 = Color3.fromRGB(100, 255, 180)
 AutoFarmText.TextSize = 16
 AutoFarmText.Font = Enum.Font.GothamBold
+AutoFarmText.ZIndex = 102
 AutoFarmText.Parent = RunningUI
 
 local ElapsedText = Instance.new("TextLabel")
@@ -168,6 +235,7 @@ ElapsedText.Text = "Time Elapsed: 00:00:00"
 ElapsedText.TextColor3 = Color3.fromRGB(220, 200, 240)
 ElapsedText.TextSize = 14
 ElapsedText.Font = Enum.Font.GothamMedium
+ElapsedText.ZIndex = 102
 ElapsedText.Parent = RunningUI
 
 local StopButton = Instance.new("TextButton")
@@ -179,6 +247,7 @@ StopButton.Text = "STOP"
 StopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 StopButton.TextSize = 17
 StopButton.Font = Enum.Font.GothamBold
+StopButton.ZIndex = 103
 StopButton.Parent = RunningUI
 
 local StopCorner = Instance.new("UICorner")
@@ -231,6 +300,7 @@ UserInputService.InputChanged:Connect(function(Input)
 		Main.Position = UDim2.new(
 			StartPosition.X.Scale,
 			StartPosition.X.Offset + Delta.X,
+
 			StartPosition.Y.Scale,
 			StartPosition.Y.Offset + Delta.Y
 		)
@@ -248,14 +318,18 @@ local CurrentTween = nil
 local FarmStartTime = 0
 
 --==================================================
--- TIMER FORMAT
+-- FORMAT TIME
 --==================================================
 
 local function FormatTime(Seconds)
 
 	local Hours = math.floor(Seconds / 3600)
-	local Minutes = math.floor((Seconds % 3600) / 60)
-	local SecondsLeft = math.floor(Seconds % 60)
+
+	local Minutes =
+		math.floor((Seconds % 3600) / 60)
+
+	local SecondsLeft =
+		math.floor(Seconds % 60)
 
 	return string.format(
 		"%02d:%02d:%02d",
@@ -278,17 +352,23 @@ local function MoveToPoint(Position)
 		return false
 	end
 
-	local Root = Character:FindFirstChild("HumanoidRootPart")
+	local Root =
+		Character:FindFirstChild("HumanoidRootPart")
 
 	if not Root then
 		return false
 	end
 
 	local StartPosition = Root.Position
-	local Distance = (Position - StartPosition).Magnitude
 
-	-- Distance / speed = travel time
-	local TravelTime = Distance / SPEED
+	local Distance =
+		(Position - StartPosition).Magnitude
+
+	-- Travel time is calculated from:
+	-- distance / 67 studs per second
+
+	local TravelTime =
+		Distance / SPEED
 
 	if TravelTime <= 0.05 then
 
@@ -300,34 +380,43 @@ local function MoveToPoint(Position)
 
 	end
 
-	local CFrameValue = Instance.new("CFrameValue")
-	CFrameValue.Value = Character:GetPivot()
+	local CFrameValue =
+		Instance.new("CFrameValue")
+
+	CFrameValue.Value =
+		Character:GetPivot()
 
 	local Connection
 
-	Connection = CFrameValue:GetPropertyChangedSignal("Value"):Connect(function()
+	Connection =
+		CFrameValue:GetPropertyChangedSignal(
+			"Value"
+		):Connect(function()
 
-		if Farming and Character.Parent then
+			if Farming and Character.Parent then
 
-			Character:PivotTo(
-				CFrameValue.Value
-			)
+				Character:PivotTo(
+					CFrameValue.Value
+				)
 
-		end
+			end
 
-	end)
+		end)
 
-	CurrentTween = TweenService:Create(
-		CFrameValue,
-		TweenInfo.new(
-			TravelTime,
-			Enum.EasingStyle.Linear,
-			Enum.EasingDirection.InOut
-		),
-		{
-			Value = CFrame.new(Position)
-		}
-	)
+	CurrentTween =
+		TweenService:Create(
+			CFrameValue,
+
+			TweenInfo.new(
+				TravelTime,
+				Enum.EasingStyle.Linear,
+				Enum.EasingDirection.InOut
+			),
+
+			{
+				Value = CFrame.new(Position)
+			}
+		)
 
 	CurrentTween:Play()
 
@@ -394,7 +483,9 @@ local function StartFarm()
 	end
 
 	Farming = true
-	FarmStartTime = os.clock()
+
+	FarmStartTime =
+		os.clock()
 
 	OriginalUI.Visible = false
 	RunningUI.Visible = true
@@ -402,10 +493,6 @@ local function StartFarm()
 	task.spawn(function()
 
 		while Farming do
-
-			--==============================================
-			-- RUN ALL 20 POINTS
-			--==============================================
 
 			for i, Location in ipairs(FarmLocations) do
 
@@ -436,9 +523,6 @@ local function StartFarm()
 				end
 
 			end
-
-			-- After point 20, the loop automatically
-			-- starts point 1 again.
 
 		end
 
@@ -478,6 +562,85 @@ local function StopFarm()
 end
 
 --==================================================
+-- EQUIP ALL ITEMS FOR SELL
+--==================================================
+
+local AllEquipped = false
+
+EquipAllButton.MouseButton1Click:Connect(function()
+
+	local Character = Player.Character
+
+	if not Character then
+		return
+	end
+
+	local Backpack =
+		Player:FindFirstChildOfClass("Backpack")
+
+	if not Backpack then
+		return
+	end
+
+	--==============================================
+	-- EQUIP EVERYTHING
+	--==============================================
+
+	if not AllEquipped then
+
+		local Tools = {}
+
+		for _, Item in ipairs(Backpack:GetChildren()) do
+
+			if Item:IsA("Tool") then
+				table.insert(Tools, Item)
+			end
+
+		end
+
+		for _, Tool in ipairs(Tools) do
+
+			if Tool.Parent == Backpack then
+				Tool.Parent = Character
+			end
+
+		end
+
+		AllEquipped = true
+
+		EquipAllButton.Text =
+			"Unequip All Items"
+
+		EquipAllButton.BackgroundColor3 =
+			Color3.fromRGB(125, 45, 180)
+
+	--==============================================
+	-- UNEQUIP EVERYTHING
+	--==============================================
+
+	else
+
+		for _, Item in ipairs(Character:GetChildren()) do
+
+			if Item:IsA("Tool") then
+				Item.Parent = Backpack
+			end
+
+		end
+
+		AllEquipped = false
+
+		EquipAllButton.Text =
+			"Equip All Items For Sell"
+
+		EquipAllButton.BackgroundColor3 =
+			Color3.fromRGB(95, 35, 150)
+
+	end
+
+end)
+
+--==================================================
 -- BUTTONS
 --==================================================
 
@@ -504,10 +667,13 @@ UserInputService.InputBegan:Connect(function(
 		return
 	end
 
-	if Input.KeyCode == Enum.KeyCode.LeftControl then
+	if Input.KeyCode ==
+		Enum.KeyCode.LeftControl then
 
 		UIHidden = not UIHidden
-		Main.Visible = not UIHidden
+
+		Main.Visible =
+			not UIHidden
 
 	end
 
@@ -525,16 +691,18 @@ task.delay(1, function()
 			"SendNotification",
 			{
 				Title = "Nutellas OABD Farm",
+
 				Text =
 					"Successfully Executed! " ..
 					SPEED ..
 					" studs/sec • Left Ctrl = Hide!",
+
 				Duration = 6
 			}
 		)
+
 	end)
 
 end)
-
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/hassanxzayn-lua/Anti-afk/main/antiafkbyhassanxzyn"))();
